@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/01 17:08:30 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/04/01 17:13:01 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/04/04 21:00:47 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,12 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 NAME = pipex
 
-INC_DIR =	includes \
+INC_DIR =	.
 
-SRC =	
+SRC =	main.c \
+		pipex.c \
+		pipex_utils.c \
+		ft_more_utils.c \
 
 BONUS =	
 
