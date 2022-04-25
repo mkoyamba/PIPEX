@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:31:29 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/25 14:59:11 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:28:37 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ size_t	ft_strlen(char *str)
 	return (n);
 }
 
-static int	ft_find_str (char *s1, int n)
+static int	ft_find_str(char *s1, int n)
 {
-	static char s2[6] = "PATH=";
+	static char	s2[6] = "PATH=";
 	int			i;
 
 	i = 0;
@@ -75,8 +75,13 @@ static char	*path_finding(char **all_path, char **command)
 	char	*temp2;
 
 	n = 0;
+	temp2 = NULL;
+	if (!command || !command[0])
+		return (NULL);
 	while (all_path[n])
 	{
+		if (temp2)
+			free(temp2);
 		temp = ft_strjoin(all_path[n], "/");
 		if (!temp)
 			break ;
@@ -87,8 +92,6 @@ static char	*path_finding(char **all_path, char **command)
 			free_tab(all_path);
 			return (temp2);
 		}
-		else if (temp2)
-			free(temp2);
 		n++;
 	}
 	if (temp2)

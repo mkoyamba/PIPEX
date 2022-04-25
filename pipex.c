@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:08:23 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/25 15:28:14 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:29:55 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static void	close_pip(int *pip, int n)
 		close(pip[0]);
 	if (n == 1)
 		close(pip[1]);
-	perror("Problème de malloc!");
 }
 
-static void	child(int *pip ,char **env, char *cmd, int fd1)
+static void	child(int *pip, char **env, char *cmd, int fd1)
 {
 	char	**command;
 	char	*path;
@@ -39,10 +38,10 @@ static void	child(int *pip ,char **env, char *cmd, int fd1)
 	dup2(fd1, STDIN_FILENO);
 	dup2(pip[1], STDOUT_FILENO);
 	close(pip[1]);
-	execve(path ,command, env);
-	free_tab(command);
-	free(path);
-	perror("Problème lors de l'execution de la première commande");
+	execve(path, command, env);
+	write(2, "pipex: ", 7);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": command not found\n", 20);
 }
 
 static int	parent(int *pip, char **env, char *cmd, int fd2)
@@ -63,10 +62,10 @@ static int	parent(int *pip, char **env, char *cmd, int fd2)
 	dup2(pip[0], STDIN_FILENO);
 	dup2(fd2, STDOUT_FILENO);
 	close(pip[0]);
-	execve(path ,command, env);
-	free_tab(command);
-	free(path);
-	write(2, "Problème lors de l'execution de la deuxième commande", 52);
+	execve(path, command, env);
+	write(2, "pipex: ", 7);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": command not found\n", 20);
 	return (1);
 }
 
