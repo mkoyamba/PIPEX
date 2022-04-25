@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:08:17 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/25 18:20:35 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:50:31 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	error_out(char *str)
 	exit(1);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	int	fd1;
 	int	fd2;

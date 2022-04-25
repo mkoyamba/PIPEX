@@ -6,11 +6,23 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:08:23 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/25 18:29:55 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:52:09 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+size_t	ft_strlen(char *str)
+{
+	size_t	n;
+
+	n = 0;
+	if (!str)
+		return (0);
+	while (str[n])
+		n++;
+	return (n);
+}
 
 static void	close_pip(int *pip, int n)
 {

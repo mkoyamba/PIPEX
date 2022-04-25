@@ -6,23 +6,11 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:31:29 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/25 18:28:37 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/04/25 19:04:36 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-size_t	ft_strlen(char *str)
-{
-	size_t	n;
-
-	n = 0;
-	if (!str)
-		return (0);
-	while (str[n])
-		n++;
-	return (n);
-}
 
 static int	ft_find_str(char *s1, int n)
 {
@@ -68,35 +56,43 @@ static char	*ft_strjoin(char *str, char *cmd)
 	return (line);
 }
 
-static char	*path_finding(char **all_path, char **command)
+static void	path_loop(char **all_path, char **tem, char **temp2, char **command)
 {
 	size_t	n;
-	char	*temp;
-	char	*temp2;
 
 	n = 0;
-	temp2 = NULL;
-	if (!command || !command[0])
-		return (NULL);
 	while (all_path[n])
 	{
-		if (temp2)
-			free(temp2);
-		temp = ft_strjoin(all_path[n], "/");
-		if (!temp)
+		if (*temp2)
+			free(*temp2);
+		*tem = ft_strjoin(all_path[n], "/");
+		if (!tem)
 			break ;
-		temp2 = ft_strjoin(temp, command[0]);
-		free(temp);
-		if (access(temp2, F_OK) == 0)
+		*temp2 = ft_strjoin(*tem, command[0]);
+		free(*tem);
+		if (access(*temp2, F_OK) == 0)
 		{
 			free_tab(all_path);
-			return (temp2);
+			all_path = NULL;
+			return ;
 		}
 		n++;
 	}
+	free_tab(all_path);
+}
+
+static char	*path_finding(char **all_path, char **command)
+{
+	char	*tem;
+	char	*temp2;
+
+	temp2 = NULL;
+	tem = NULL;
+	if (!command || !command[0])
+		return (NULL);
+	path_loop(all_path, &tem, &temp2, command);
 	if (temp2)
 		return (temp2);
-	free_tab(all_path);
 	return (NULL);
 }
 
