@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:08:17 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/04 20:43:02 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/04/25 15:41:02 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	error_out(char *str)
 {
-	write(2, str, ft_strlen(str));
-	exit(0);
+	perror(str);
+	exit(1);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	int	fd1;
 	int	fd2;
@@ -27,13 +27,12 @@ int main(int argc, char **argv, char **env)
 		error_out(ERROR_ARG);
 	fd1 = open(argv[1], O_RDONLY);
 	if (fd1 < 0)
-		error_out(ERROR_F1);
-	fd2 = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		error_out(argv[1]);
+	fd2 = open(argv[4], O_RDWR | O_TRUNC, 0644);
 	if (fd2 < 0)
 	{
 		close(fd1);
-		error_out(ERROR_F2);
+		error_out(argv[4]);
 	}
-	ft_pipex(fd1, fd2, argv, env);
-	return (0);
+	return (ft_pipex(fd1, fd2, argv, env));
 }

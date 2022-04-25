@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:08:23 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/04 20:31:22 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/04/25 15:28:14 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	child(int *pip ,char **env, char *cmd, int fd1)
 	perror("Problème lors de l'execution de la première commande");
 }
 
-static void	parent(int *pip, char **env, char *cmd, int fd2)
+static int	parent(int *pip, char **env, char *cmd, int fd2)
 {
 	char	**command;
 	char	*path;
@@ -66,14 +66,17 @@ static void	parent(int *pip, char **env, char *cmd, int fd2)
 	execve(path ,command, env);
 	free_tab(command);
 	free(path);
-	perror("Problème lors de l'execution de la deuxième commande");
+	write(2, "Problème lors de l'execution de la deuxième commande", 52);
+	return (1);
 }
 
-void	ft_pipex(int fd1, int fd2, char **av, char **env)
+int	ft_pipex(int fd1, int fd2, char **av, char **env)
 {
+	int		result;
 	pid_t	pid;
 	int		pip[2];
 
+	result = 0;
 	pipe(pip);
 	pid = fork();
 	if (pid < 0)
@@ -86,11 +89,11 @@ void	ft_pipex(int fd1, int fd2, char **av, char **env)
 		child(pip, env, av[2], fd1);
 	else
 	{
-		waitpid(pid, NULL, 0);
-		parent(pip, env, av[3], fd2);
+		result = parent(pip, env, av[3], fd2);
 		if (fd1 > 2)
 			close(fd1);
 		if (fd2 > 2)
 			close(fd2);
 	}
+	return (result);
 }
