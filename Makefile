@@ -6,7 +6,7 @@
 #    By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/01 17:08:30 by mkoyamba          #+#    #+#              #
-#    Updated: 2022/04/04 21:00:47 by mkoyamba         ###   ########.fr        #
+#    Updated: 2022/06/09 10:14:54 by mkoyamba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,26 +21,17 @@ SRC =	main.c \
 		pipex_utils.c \
 		ft_more_utils.c \
 
-BONUS =	
-
 OBJ = $(SRC:.c=.o)
-
-OBJB = $(BONUS:bonus.c=bonus.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o $(NAME)
+	@gcc $(CFLAGS) $(OBJ) -o $(NAME)
+	@printf "\033[32;1m\n\nPipex created\n\n"
 
-%bonus.o: %bonus.c
-	@gcc $(CFLAGS) -I $(INC_DIR) -c $< -o $@
-	
 %.o: %.c
 	@gcc $(CFLAGS) -I $(INC_DIR) -c $< -o $@
-
-
-bonus: $(OBJB)
-	@gcc $(CFLAGS) $(OBJB) -o $(NAME)
+	@printf "\033[31;1m."
 
 clean:
 	@rm -rf $(OBJ) $(OBJB)

@@ -6,7 +6,7 @@
 /*   By: mkoyamba <mkoyamba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:08:26 by mkoyamba          #+#    #+#             */
-/*   Updated: 2022/04/25 17:39:15 by mkoyamba         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:18:43 by mkoyamba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include <stddef.h>
-# include <sys/wait.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
